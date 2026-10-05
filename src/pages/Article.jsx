@@ -1,6 +1,8 @@
 import { ArrowLeft } from "@phosphor-icons/react";
 import { TextLink } from "../components/TextLink.jsx";
 
+import { site } from "../site.js";
+
 export function Article({ post }) {
   const Content = post.Content;
   return (
@@ -19,6 +21,16 @@ export function Article({ post }) {
         {post.title}
       </h1>
       <p className="mt-6 text-xl leading-relaxed text-muted">{post.excerpt}</p>
+      {post.image && (
+        <img
+          src={post.image}
+          alt={post.imageAlt || ""}
+          width={post.imageWidth}
+          height={post.imageHeight}
+          fetchPriority="high"
+          className="my-8 h-auto w-full rounded-md"
+        />
+      )}
       {post.sample && (
         <p className="my-8 border-l-2 border-accent py-2 pl-4 text-sm text-muted">
           Sample article — preview content, not a published personal story.
@@ -27,8 +39,9 @@ export function Article({ post }) {
       <div className="prose border-t border-line pt-8">
         <Content />
       </div>
-      <div className="mt-12 border-t border-line pt-6">
+      <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-line pt-6">
         <TextLink href="/blog/">More writing</TextLink>
+        <TextLink href={site.medium} external>Read more on Medium</TextLink>
       </div>
     </article>
   );

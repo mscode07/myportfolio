@@ -32,6 +32,8 @@ Follow the page import for the area you want to change:
 | `src/styles.css` | Fonts, theme tokens, shared styles, responsive/accessibility rules |
 | `scripts/prerender.mjs` | Generates HTML for each route, sitemap, and robots.txt |
 | `worker/index.js` | Deployed asset serving and YouTube feed endpoint |
+| `api/youtube.js` | Vercel function adapter for the same YouTube feed handler |
+| `vercel.json` | Vercel build command and static output directory |
 | `tests/` | Generated-site checks and worker behavior tests |
 
 Navigation uses normal links with full page loads; there is no client-side router.
@@ -45,15 +47,23 @@ component rather than each page. Keep abstractions small and names descriptive.
 
 The Sites integration files listed in `AGENTS.md` must remain intact.
 
-Deploy `dist/client` on a static host supporting directory index pages. The generated worker/hosting metadata also preserves compatibility with Sites. Nothing has been deployed or changed on mscodee.com.
+Deploy `dist/client` on a static host supporting directory index pages. The generated worker/hosting metadata also preserves compatibility with Sites.
+
+For Vercel, deploy the repository root (not just the `dist/client` folder).
+`vercel.json` selects the build output and `api/youtube.js` supplies the feed
+function. Vercel does not execute `worker/index.js` automatically; the adapter
+reuses its feed logic without changing the Sites packaging. After redeploying,
+check `/api/youtube`: it should return JSON with a nonempty `videos` array.
+A 404 means the function was not deployed; a 502 means YouTube could not be
+reached. These changes must be deployed before they affect mscodee.com.
 
 ## Add real content
 
-Edit `src/site.js` for social accounts, email, and channel links. Edit `src/projects.js` for the four product entries rendered by `ProjectList`. Their names and descriptions come from the supplied product sites and resume. The podcast playlist still needs to be supplied.
+Edit `src/site.js` for social accounts, email, and channel links. Edit `src/projects.js` for the four product entries rendered by `ProjectList`. Their names and descriptions come from the supplied product sites and resume. Curated uploads and three podcast episodes were verified against the public channel Videos tab on 2026-10-05.
 
-The homepage now fetches your latest regular uploads from the public YouTube uploads feed at runtime through `/api/youtube`. It refreshes with a 15-minute cache and falls back to the local samples if the feed is unavailable. No API key is needed.
+The homepage now fetches your latest regular uploads from the public YouTube uploads feed at runtime through `/api/youtube`. It refreshes with a 15-minute cache and falls back to the verified local video links if the feed is unavailable. No API key is needed.
 
-Replace sample video entries to change the local fallback content:
+Update the curated video entries to change the local fallback content:
 
 ```js
 { id: 'YOUR_YOUTUBE_VIDEO_ID', title: 'Your exact video title', kind: 'video' }
@@ -68,6 +78,12 @@ the feed. The worker currently has its own channel ID, which must match
 `site.youtubeChannelId` if the channel changes.
 
 ## Blog
+
+The Pasha interview is the first original article, featured ahead of the sample
+posts. Optional `image`, `imageAlt`, `imageWidth`, and `imageHeight` metadata
+display a cover inside the article only. Blog lists remain text-only. The Medium
+profile link is configured in `src/site.js` and appears in writing sections. Store
+optimized images in `public/images/`; keep the original artwork outside the build.
 
 Add an `.mdx` file to `src/content/`. Export `meta` with `slug`, `title`, `excerpt`, `category`, `readingTime`, and `sample: false`. Write the article below that export. Rebuild to generate `/blog/your-slug/`. The three included articles are explicitly marked samples and excluded from the sitemap and search indexing.
 
@@ -90,4 +106,4 @@ Reduced motion skips typing, and the decorative caret stops after 1.5 seconds.
 
 ## Before publishing
 
-Supply real video links, replace sample articles, and review the resume text for current accuracy. Professional details were updated from the supplied Resume_EU.pdf; its phone number and original PDF are not copied into public assets. The sample media assets are generated concept art. This local build is not a statement that sample videos or articles are already published.
+Review the curated video links, replace sample articles, and review the resume text for current accuracy. Professional details were updated from the supplied Resume_EU.pdf; its phone number and original PDF are not copied into public assets. The sample media assets are generated concept art. This local build is not a statement that sample videos or articles are already published.
