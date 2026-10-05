@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+@font-face { font-family:'Inter Variable'; font-style:normal; font-weight:100 900; font-display:swap; src:url('/fonts/inter-latin.woff2') format('woff2'); }
+@font-face { font-family:'Anton'; font-style:normal; font-weight:700; font-display:swap; src:url('/fonts/anton-latin.woff2') format('woff2'); }
+
+@theme inline {
+  --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  --color-page: var(--page);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+}
+:root { color-scheme: dark; --page:#121314; --ink:#f5f5f4; --muted:#b6b7ba; --line:#393a3d; --accent:#e8c647; --surface:#1c1e20; font-synthesis:none; }
+:root[data-theme='light'] { color-scheme:light; --page:#faf9f6; --ink:#191a1c; --muted:#5a5d62; --line:#d8d7d1; --accent:#866704; --surface:#f0efea; }
+@layer base {
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; scroll-padding-top:2rem; }
+  body { @apply m-0 bg-page font-sans text-ink antialiased; min-width:320px; }
+  button,a { -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+  button { cursor:pointer; }
+  a,button { outline-offset:5px; }
+  :focus-visible { outline:2px solid var(--accent); }
+  ::selection { background:var(--accent); color:var(--page); }
+  button:disabled { cursor:default; }
+  img { display:block; }
+}
+@layer components {
+  .shell { @apply mx-auto w-[calc(100%-2.5rem)] max-w-[1240px] sm:w-[calc(100%-5rem)]; }
+  .eyebrow { @apply font-mono text-[10px] font-normal uppercase leading-relaxed tracking-[0.15em] sm:text-xs; }
+  .hero-title { font-size:clamp(3.75rem,10.8vw,9.5rem); line-height:.98; letter-spacing:-.035em; }
+  .page-title { @apply font-display text-6xl font-bold leading-none tracking-[-0.03em] sm:text-8xl; }
+  .section-title { @apply font-display text-[1.9rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[2.4rem]; }
+  .section-space { @apply py-10 sm:py-12; }
+  .text-link { @apply inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-medium underline decoration-accent decoration-2 underline-offset-8; }
+  .social-link { @apply inline-flex min-h-11 items-center gap-2.5; }
+  .nav-link { @apply py-3 text-sm; }
+  .nav-link[aria-current='page'] { @apply underline decoration-accent decoration-2 underline-offset-8; }
+  .round-button { @apply grid size-11 shrink-0 place-items-center rounded-full border border-muted/70 disabled:opacity-25; }
+  .video-track { @apply flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2; scrollbar-width:none; overscroll-behavior-x:contain; }
+  .video-track::-webkit-scrollbar { display:none; }
+  .video-item { flex:0 0 86%; scroll-snap-align:start; min-width:0; }
+  .prose { @apply text-base leading-[1.85] text-muted sm:text-lg; }
+  .prose p { @apply my-5; }
+  .prose h2 { @apply mb-4 mt-10 font-display text-4xl font-bold leading-tight tracking-tight text-ink; }
+  .prose h3 { @apply mb-3 mt-7 text-xl font-semibold leading-snug text-ink; }
+  .prose a { @apply text-ink underline decoration-accent decoration-2 underline-offset-4; }
+  .prose ul { @apply my-6 list-disc space-y-2 pl-6; }
+  .prose ol { @apply my-6 list-decimal space-y-2 pl-6; }
+  .prose blockquote { @apply my-8 border-l-2 border-accent pl-6 text-xl text-ink; }
+  .prose pre { @apply my-6 overflow-x-auto rounded-lg bg-surface p-5 text-sm; }
+  .prose code { @apply rounded bg-surface px-1 py-0.5 text-sm; }
+  .prose img { @apply my-8 h-auto max-w-full rounded-md; }
+  .skip-link { @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded bg-accent px-4 py-3 text-page focus:translate-y-0; }
+}
+/* A single branded introduction lets the poster and copy share one surface.
+   Its colors stay fixed because the supplied artwork has a black background. */
+.podcast-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  margin-bottom: 32px;
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid #303028;
+  border-radius: 12px;
+  background: #050504;
+  color: #f5f5f4;
+}
+.podcast-artwork {
+  width: 100%;
+  height: auto;
+  /* Fade only the outer black edge, leaving all lettering intact. */
+  mask-image: radial-gradient(ellipse, #000 62%, transparent 75%);
+}
+.podcast-copy .eyebrow { color: #e8c647; }
+.podcast-heading {
+  margin-top: 16px;
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.3vw, 2.8rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+.podcast-caption {
+  margin-top: 20px;
+  color: #b6b7ba;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.podcast-copy .text-link { margin-top: 20px; }
+@media(max-width:639px) {
+  .podcast-intro { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .podcast-artwork { width: 180px; justify-self: center; }
+}
+@media(min-width:640px) { .video-item { flex-basis:calc((100% - 20px)/2); } }
+@media(min-width:1024px) { .video-item { flex-basis:calc((100% - 40px)/3); } .podcast-track .video-item { flex-basis:calc((100% - 20px)/2); } }
+@media(hover:hover) { .text-link:hover,.social-link:hover,.nav-link:hover { color:var(--accent); } .round-button:not(:disabled):hover,.theme-button:hover { background:var(--surface); } .video-link:hover .play-button { background:rgba(0,0,0,.65); transform:translate(-50%,-50%) scale(1.06); } }
+button:active:not(:disabled),.social-link:active { transform:scale(.96); }
+.play-button { transition:transform 160ms ease-out,background 160ms ease-out; }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation:none!important; transition:none!important; } }
+@media(prefers-reduced-transparency:reduce) { .play-button { backdrop-filter:none; background:#171819; } }
+@media(prefers-contrast:more) { :root { --muted:#dedede; --line:#909090; } :root[data-theme='light'] { --muted:#303030; --line:#777; } }
+@media print { :root { --page:#fff; --ink:#111; --muted:#333; --line:#ccc; } .site-header,footer,.skip-link { display:none; } .shell { width:100%; } a { text-decoration:none!important; } }
