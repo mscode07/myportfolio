@@ -70,6 +70,9 @@ export function Home() {
           <TextLink href="/blog/">All posts</TextLink>
         </div>
         <PostList />
+        <TextLink href={site.medium} external className="mt-6">
+          Read more on Medium
+        </TextLink>
       </section>
       <section
         id="videos"

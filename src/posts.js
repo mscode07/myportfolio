@@ -1,5 +1,7 @@
 const articleModules = import.meta.glob("./content/*.mdx", { eager: true });
 const featuredOrder = [
+  "danii-million-dollar-exit-starting-again",
+  "pasha-forbes-to-indie-hacker",
   "building-in-public",
   "idea-to-product",
   "full-stack-journey",

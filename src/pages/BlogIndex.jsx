@@ -1,5 +1,8 @@
 import { PostList } from "../components/PostList.jsx";
 
+import { TextLink } from "../components/TextLink.jsx";
+import { site } from "../site.js";
+
 export function BlogIndex() {
   return (
     <section className="min-h-[70vh] py-14 sm:py-20">
@@ -9,11 +12,13 @@ export function BlogIndex() {
         On building products, writing code, and sharing the process.
       </p>
       <p className="mt-8 text-sm text-muted">
-        These sample articles preview the reading experience. Original posts are
-        on the way.
+        Stories from The Underdog Show and notes on what I’m learning along the way.
       </p>
       <div className="mt-10 border-t border-line">
         <PostList all />
+        <TextLink href={site.medium} external className="mt-6">
+          Read more on Medium
+        </TextLink>
       </div>
     </section>
   );
