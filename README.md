@@ -1,5 +1,15 @@
 # Abhishek’s portfolio
 
+## What belongs in Git
+
+Commit source, public assets, tests, deployment configuration, and
+`package-lock.json`. Do not commit `node_modules/`, `dist/`, local environment
+files, credentials, or deployment caches; `.gitignore` excludes these.
+Use `npm ci` after cloning to install the locked dependencies.
+Only sanitized `.env.example` or `.env.sample` templates may be committed.
+Any `VITE_*` environment variable is public browser configuration, not a place
+for secrets. Keep server credentials in Vercel environment settings.
+
 Responsive React + Vite + Tailwind CSS portfolio, based on the approved dark typographic design. All primary pages are pre-rendered to HTML at build time. Inter and Anton are self-hosted; no font CDN, YouTube player, analytics, or live feed calls are needed to render the homepage.
 
 ## Visitor analytics
