@@ -2,7 +2,24 @@
 
 Responsive React + Vite + Tailwind CSS portfolio, based on the approved dark typographic design. All primary pages are pre-rendered to HTML at build time. Inter and Anton are self-hosted; no font CDN, YouTube player, analytics, or live feed calls are needed to render the homepage.
 
-## Run
+## Visitor analytics
+
+Vercel Web Analytics is initialized in `src/main.jsx` for production builds
+on `mscodee.com` and `www.mscodee.com` only. Local development, local production
+previews, and Vercel preview domains do not send page views. Query strings and
+URL fragments are stripped from page URLs before sending.
+
+To activate: open the Vercel project's Analytics dashboard, click Enable,
+then deploy this version. Visit the live domain and check the dashboard for
+visitor and page-view totals. Data starts when tracking is enabled; old visits
+cannot be reconstructed. Counts can miss visitors using blockers.
+
+This integration provides a private Vercel dashboard, not a public counter or
+an exact count of currently open browser tabs. Live presence needs a defined
+activity window and a suitable tracking backend. Do not expose Vercel API tokens
+in browser code.
+
+## Development commands
 
 - `npm install`
 - `npm run dev` — local development
