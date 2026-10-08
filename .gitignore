@@ -1,0 +1,28 @@
+# Installed dependencies and generated builds
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Local secrets (commit only sanitized example files)
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# Local deployment state; .openai/hosting.json is required and stays tracked
+.vercel/
+.wrangler/
+
+# Logs, OS metadata, editor state, and temporary working files
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+tmp/
+work/
