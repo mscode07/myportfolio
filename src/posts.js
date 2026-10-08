@@ -1,5 +1,7 @@
 const articleModules = import.meta.glob("./content/*.mdx", { eager: true });
 const featuredOrder = [
+  "fanti-freelancing-app-marketing",
+  "petro-ukraine-products-ai",
   "danii-million-dollar-exit-starting-again",
   "pasha-forbes-to-indie-hacker",
   "building-in-public",
