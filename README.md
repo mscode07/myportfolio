@@ -134,3 +134,9 @@ Reduced motion skips typing, and the decorative caret stops after 1.5 seconds.
 ## Before publishing
 
 Review the curated video links, replace sample articles, and review the resume text for current accuracy. Professional details were updated from the supplied Resume_EU.pdf; its phone number and original PDF are not copied into public assets. The sample media assets are generated concept art. This local build is not a statement that sample videos or articles are already published.
+
+### GitHub activity
+
+`GitHubActivity` renders the selected hero-adjacent contribution calendar. `useContributions` fetches public activity for `mscode07` from the community-run [GitHub Contributions API](https://github.com/grubersjoe/github-contributions-api), which scrapes GitHub and caches results for one hour. This token-free browser integration works on both hosting targets without worker changes. GitHub may take up to 24 hours to reflect activity; this is not an instantaneous feed.
+
+The hook validates the feed, caches successful results locally, and checks hourly while mounted. Saved data is explicitly labeled if refresh fails; with no data the graph shows an unavailable message and GitHub link, never simulated contributions. Calendar formatting uses UTC to preserve day alignment. Hover/tap/focus shows day counts; arrow keys navigate dates. Small screens scroll the full year horizontally, and reduced motion disables the reveal.
