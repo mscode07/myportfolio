@@ -104,3 +104,39 @@ button:active:not(:disabled),.social-link:active { transform:scale(.96); }
 @media(prefers-reduced-transparency:reduce) { .play-button { backdrop-filter:none; background:#171819; } }
 @media(prefers-contrast:more) { :root { --muted:#dedede; --line:#909090; } :root[data-theme='light'] { --muted:#303030; --line:#777; } }
 @media print { :root { --page:#fff; --ink:#111; --muted:#333; --line:#ccc; } .site-header,footer,.skip-link { display:none; } .shell { width:100%; } a { text-decoration:none!important; } }
+
+/* The selected hero and activity strip share the existing editorial surface. */
+.portfolio-hero { display:grid; grid-template-columns: minmax(240px, .4fr) minmax(0, 1fr); gap:56px; align-items:center; padding:64px 0 48px; }
+.hero-profile { width:100%; height:auto; aspect-ratio:1; }
+.hero-copy .hero-title { font-size:clamp(3.5rem, 7.5vw, 7.5rem); white-space:nowrap; margin-top:24px; }
+.hero-copy > p:not(.eyebrow) { font-size:clamp(1.25rem, 2.3vw, 2rem); }
+.github-activity { padding:32px 0 24px; }
+.github-heading { display:flex; justify-content:space-between; gap:20px; align-items:center; }
+.github-total { margin-top:6px; font-size:clamp(1.1rem, 2vw, 1.65rem); letter-spacing:-.025em; }
+.github-scroll { overflow-x:auto; padding:28px 0 16px; }
+.github-calendar { display:grid; grid-template-columns:36px repeat(var(--weeks), minmax(0, 1fr)); gap:4px; min-width:720px; }
+.github-week { display:grid; grid-template-rows:22px repeat(7, auto); gap:4px; align-content:start; animation:contribution-reveal 240ms ease-out both; animation-delay:var(--delay); }
+.github-month { font-size:11px; color:var(--muted); white-space:nowrap; }
+.github-day { position:relative; display:block; border:0; padding:0; width:100%; aspect-ratio:1; border-radius:3px; }
+.level-0 { background:#20262c; } .level-1 { background:#0e4429; } .level-2 { background:#006d32; } .level-3 { background:#26a641; } .level-4 { background:#39d353; }
+:root[data-theme='light'] .level-0 { background:#e2e5e1; }
+.github-weekdays { display:grid; grid-template-rows:22px repeat(7, 1fr); gap:4px; font-size:11px; color:var(--muted); }
+.github-weekdays span:nth-child(1) { grid-row:3; } .github-weekdays span:nth-child(2) { grid-row:5; } .github-weekdays span:nth-child(3) { grid-row:7; }
+.github-tooltip { display:none; position:absolute; bottom:calc(100% + 7px); left:50%; transform:translateX(-50%); z-index:5; background:var(--ink); color:var(--page); border-radius:4px; padding:7px 10px; font-size:12px; white-space:nowrap; pointer-events:none; }
+.github-week:nth-child(-n+12) .github-tooltip { left:0; transform:none; }
+.github-week:nth-last-child(-n+12) .github-tooltip { left:auto; right:0; transform:none; }
+.github-day:hover .github-tooltip,.github-day:focus .github-tooltip { display:block; }
+.github-day:hover,.github-day:focus-visible { outline:2px solid var(--ink); outline-offset:2px; z-index:6; }
+.github-meta { display:flex; justify-content:space-between; align-items:center; gap:16px; color:var(--muted); font-size:12px; }
+.github-legend { display:flex; align-items:center; gap:5px; }
+.github-legend i { width:13px; height:13px; border-radius:3px; }
+.github-legend span:first-child { margin-right:5px; } .github-legend span:last-child { margin-left:5px; }
+.github-placeholder { min-height:180px; padding-top:32px; font-size:14px; }
+@keyframes contribution-reveal { from { opacity:0; } to { opacity:1; } }
+@media(max-width:900px) { .portfolio-hero { gap:30px; grid-template-columns: minmax(180px,.4fr) minmax(0,1fr); } .hero-copy .hero-title { font-size:clamp(2.5rem,7vw,5rem); } }
+@media(max-width:639px) { .portfolio-hero { grid-template-columns:1fr; padding:32px 0; gap:28px; } .hero-profile { width:208px; } .hero-copy .hero-title { font-size:clamp(2.8rem,10.3vw,4.3rem); } .github-heading { align-items:flex-start; gap:12px; } .github-heading .text-link { font-size:12px; } .github-meta { align-items:flex-start; flex-direction:column; gap:12px; } }
+@media(prefers-reduced-motion:reduce) { .github-week { animation:none; } }
+.github-week { min-width:0; grid-template-columns:minmax(0,1fr); }
+.github-week > span:not(.github-month) { width:100%; aspect-ratio:1; }
+.github-heading .text-link { color:var(--accent); }
+@media(min-width:901px) { .hero-copy .hero-title { font-size:clamp(3.5rem,8.6vw,8.5rem); } .hero-copy .social-link { font-size:18px; } #work .section-title { font-size:clamp(2.4rem,4.6vw,4.2rem); } }

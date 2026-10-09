@@ -9,28 +9,31 @@ import { site, episodes } from "../site.js";
 import { posts } from "../posts.js";
 import { useLatestVideos } from "../hooks/useLatestVideos.js";
 
+import { GitHubActivity } from "../components/GitHubActivity.jsx";
+
 export function Home() {
   const latestVideos = useLatestVideos();
   return (
     <>
       <section
-        className="hero pb-16 pt-12 sm:pb-16 sm:pt-12 lg:pt-10"
+        className="hero portfolio-hero"
         aria-labelledby="intro-title"
       >
-        <div className="mb-7 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8">
+        <div className="hero-portrait">
           <img
             src="/images/portfolio-portrait.jpg"
             alt="mscode07 smiling at his developer workspace"
             width="800"
             height="800"
-            className="size-40 shrink-0 rounded-2xl border border-line object-contain sm:size-52"
+            className="hero-profile rounded-2xl border border-line object-contain"
             fetchPriority="high"
           />
+        </div>
+        <div className="hero-copy">
           <p className="eyebrow">
             Full stack developer <span className="px-1 text-muted">/</span>{" "}
             Content creator
           </p>
-        </div>
         <TypingHeading />
         <p className="mt-6 max-w-3xl text-[clamp(1.25rem,2.45vw,2rem)] leading-[1.45] tracking-[-0.025em]">
           I build products, share what I learn,
@@ -39,7 +42,9 @@ export function Home() {
         <div className="mt-8 sm:mt-10">
           <Socials />
         </div>
+        </div>
       </section>
+      <GitHubActivity />
       <section
         id="work"
         className="section-space border-t border-line"
