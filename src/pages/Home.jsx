@@ -1,3 +1,5 @@
+import { usePodcastEpisodes } from "../hooks/usePodcastEpisodes.js";
+import { YoutubeLogo } from "@phosphor-icons/react";
 import { Carousel } from "../components/Carousel.jsx";
 import { TextLink } from "../components/TextLink.jsx";
 import { Socials } from "../components/Socials.jsx";
@@ -5,7 +7,7 @@ import { PostList } from "../components/PostList.jsx";
 import { ProjectList } from "../components/ProjectList.jsx";
 import { PodcastIntro } from "../components/PodcastIntro.jsx";
 import { TypingHeading } from "../components/TypingHeading.jsx";
-import { site, episodes } from "../site.js";
+import { site } from "../site.js";
 import { posts } from "../posts.js";
 import { useLatestVideos } from "../hooks/useLatestVideos.js";
 
@@ -13,6 +15,7 @@ import { GitHubActivity } from "../components/GitHubActivity.jsx";
 
 export function Home() {
   const latestVideos = useLatestVideos();
+  const podcastEpisodes = usePodcastEpisodes();
   return (
     <>
       <section
@@ -86,7 +89,10 @@ export function Home() {
       >
         <div className="mb-7 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p className="eyebrow">On YouTube</p>
+            <p className="flex items-center gap-2.5 text-xl font-semibold tracking-tight">
+              <YoutubeLogo size={32} weight="fill" className="text-[#ff0033]" aria-hidden="true" />
+              YouTube
+            </p>
             <h2 id="video-title" className="section-title mt-3">
               Building, learning, and sharing the process.
             </h2>
@@ -100,7 +106,7 @@ export function Home() {
             </TextLink>
           )}
         </div>
-        <Carousel items={latestVideos} label="YouTube videos" />
+        <Carousel items={latestVideos} label="YouTube videos" autoPlay />
       </section>
       <section
         id="podcast"
@@ -108,7 +114,9 @@ export function Home() {
         aria-labelledby="podcast-title"
       >
         <PodcastIntro />
-        <Carousel items={episodes} label="podcast episodes" columns={2} />
+        {podcastEpisodes.length ? (
+          <Carousel items={podcastEpisodes} label="podcast episodes" columns={2} autoPlay circular playlistId={site.podcastPlaylistId} />
+        ) : <p className="text-muted">Full episodes will appear here when they are added to the playlist.</p>}
       </section>
       <section
         id="about"

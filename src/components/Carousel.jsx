@@ -5,11 +5,14 @@ import {
   ArrowRight,
   ArrowUpRight,
   Play,
+  Pause,
   ImageBroken,
 } from "@phosphor-icons/react";
 
-export function Carousel({ items, label, columns = 3 }) {
-  const { track, page, pages, goToPage } = useCarousel(items);
+export function Carousel({ items, label, columns = 3, autoPlay = false, circular = false, playlistId }) {
+  const { track, region, page, pages, goToPage, paused, setPaused, reducedMotion } = useCarousel(items, autoPlay, circular);
+  const looping = circular && items.length > 1;
+  const renderedItems = looping ? [...items, ...items, ...items] : items;
   const [failed, setFailed] = useState({});
   const [sample, setSample] = useState(null);
   const closeButton = useRef(null);
@@ -38,6 +41,7 @@ export function Carousel({ items, label, columns = 3 }) {
   };
   return (
     <div
+      ref={region}
       className="relative"
       role="region"
       aria-roledescription="carousel"
@@ -51,16 +55,13 @@ export function Carousel({ items, label, columns = 3 }) {
         onKeyDown={(e) => {
           if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
             e.preventDefault();
-            goToPage(
-              Math.max(
-                0,
-                Math.min(pages - 1, page + (e.key === "ArrowRight" ? 1 : -1)),
-              ),
-            );
+            const next = page + (e.key === "ArrowRight" ? 1 : -1);
+            goToPage(looping ? next : Math.max(0, Math.min(pages - 1, next)));
           }
         }}
       >
-        {items.map((item, i) => {
+        {renderedItems.map((item, i) => {
+          const duplicate = looping && (i < items.length || i >= items.length * 2);
           const id = item.id || item.key;
           const image = item.id
             ? `https://i.ytimg.com/vi/${item.id}/hqdefault.jpg`
@@ -110,13 +111,15 @@ export function Carousel({ items, label, columns = 3 }) {
           return (
             <div
               className="video-item"
-              key={id}
+              key={`${id}-${i}`}
               role="group"
-              aria-label={`${i + 1} of ${items.length}`}
+              aria-hidden={duplicate || undefined}
+              aria-label={`${i % items.length + 1} of ${items.length}`}
             >
               {item.id ? (
                 <a
-                  href={`https://www.youtube.com/watch?v=${item.id}`}
+                  tabIndex={duplicate ? -1 : undefined}
+                  href={`https://www.youtube.com/watch?v=${item.id}${playlistId ? `&list=${playlistId}` : ""}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="video-link group block"
@@ -147,7 +150,7 @@ export function Carousel({ items, label, columns = 3 }) {
             : "Select a video to watch on YouTube"}
           <ArrowUpRight size={12} className="ml-1 inline" />
         </p>
-        <div className="flex items-center gap-1" aria-label={`${label} slides`}>
+        <div className={pages > 1 ? "flex items-center gap-1" : "hidden"} aria-label={`${label} slides`}>
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
@@ -162,18 +165,28 @@ export function Carousel({ items, label, columns = 3 }) {
             </button>
           ))}
         </div>
-        <div className="flex gap-2">
+        <div className={pages > 1 ? "flex gap-2" : "hidden"}>
+          {autoPlay && !reducedMotion && pages > 1 && (
+            <button
+              onClick={() => setPaused(!paused)}
+              className="round-button"
+              aria-label={paused ? "Resume automatic sliding" : "Pause automatic sliding"}
+              title={paused ? "Resume automatic sliding" : "Pause automatic sliding"}
+            >
+              {paused ? <Play size={18} /> : <Pause size={18} />}
+            </button>
+          )}
           <button
-            onClick={() => goToPage(Math.max(0, page - 1))}
-            disabled={page === 0}
+            onClick={() => goToPage(looping ? page - 1 : Math.max(0, page - 1))}
+            disabled={!looping && page === 0}
             className="round-button"
             aria-label={`Previous ${label}`}
           >
             <ArrowLeft size={18} />
           </button>
           <button
-            onClick={() => goToPage(Math.min(pages - 1, page + 1))}
-            disabled={page >= pages - 1}
+            onClick={() => goToPage(looping ? page + 1 : Math.min(pages - 1, page + 1))}
+            disabled={!looping && page >= pages - 1}
             className="round-button"
             aria-label={`Next ${label}`}
           >

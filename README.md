@@ -52,7 +52,7 @@ Follow the page import for the area you want to change:
 | `src/pages/` | Home, blog index, article, about/resume, and missing-page UI |
 | `src/components/` | Shared navigation, links, post list, and media carousel |
 | `src/hooks/useLatestVideos.js` | Optional video feed request and local fallback |
-| `src/hooks/useCarousel.js` | Scroll measurements, resize handling, and carousel navigation |
+| `src/hooks/useCarousel.js` | Scroll measurements, resize handling, carousel navigation, and optional automatic sliding |
 | `src/routes.js` | Build-time route list and search/social metadata |
 | `src/site.js` | Personal links and curated media |
 | `src/posts.js`, `src/content/` | Article loading/order and MDX content |
@@ -140,3 +140,13 @@ Review the curated video links, replace sample articles, and review the resume t
 `GitHubActivity` renders the selected hero-adjacent contribution calendar. `useContributions` fetches public activity for `mscode07` from the community-run [GitHub Contributions API](https://github.com/grubersjoe/github-contributions-api), which scrapes GitHub and caches results for one hour. This token-free browser integration works on both hosting targets without worker changes. GitHub may take up to 24 hours to reflect activity; this is not an instantaneous feed.
 
 The hook validates the feed, caches successful results locally, and checks hourly while mounted. Saved data is explicitly labeled if refresh fails; with no data the graph shows an unavailable message and GitHub link, never simulated contributions. Calendar formatting uses UTC to preserve day alignment. Hover/tap/focus shows day counts; arrow keys navigate dates. Small screens scroll the full year horizontally, and reduced motion disables the reveal.
+
+The YouTube carousel advances every five seconds while visible. It pauses on hover, stops after keyboard/touch interaction until resumed with its play control, and disables automatic sliding for reduced motion. The podcast carousel uses a seamless forward loop when it has at least two episodes. Video thumbnails and titles link to their individual YouTube watch pages.
+
+### Podcast playlist
+
+`src/hooks/usePodcastEpisodes.js` loads `/api/podcast` on mount and every 15 minutes. The endpoint reads only playlist `PLXOmtQsp0Vgc`, with a 15-minute cache. `src/site.js` contains its verified one-episode snapshot for network failures. A successful empty feed clears the list. The public RSS feed exposes a limited recent window (typically 15 entries); this is not an archive of arbitrarily long playlists, and its order is the order supplied by YouTube's feed. The show link opens the full playlist.
+
+`server/podcast.js` is shared by Vercel's `api/podcast.js`, the Vite development middleware, and the packaged Sites worker. `scripts/prepare-podcast-worker.mjs` wraps the generated worker after the existing Sites preparation step, preserving the original hosting files.
+
+Circular mode in `useCarousel` uses three sets of cards and recenters onto identical content after scrolling settles. Duplicate cards stay clickable but are excluded from keyboard tab order and the accessibility tree. A single episode stays static; reduced motion disables auto-sliding. Manual navigation and pause controls remain available.

@@ -23,3 +23,7 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 Keep blog lists text-only, including the homepage. Show supplied blog thumbnails only inside the article after it is opened. Include a “Read more on Medium” link to https://medium.com/@mscode07 in writing sections.
 
 The selected GitHub activity design places a compact full-year contribution graph immediately below the hero and above Products & small experiments. Match the selected mock's desktop hero with a larger uncropped square portrait beside the introduction; stack on phones. Use real automatically refreshed contribution counts, green intensity cells, a View GitHub link, accessible day details, and a subtle one-time reveal that respects reduced motion. Never present the mock's 480 contributions as live data.
+
+The YouTube section uses a red YouTube logo beside its name and automatically slides through clickable video cards. Keep manual navigation, pause on hover or interaction, and disable automatic motion for reduced-motion users.
+
+The podcast carousel must use only the full-episode playlist PLXOmtQsp0Vgc. Auto-sliding moves right to left in a seamless circular loop, without a visible backward rewind. Keep episodes clickable, pause and reduced-motion support, and show a single episode without duplicating it until more are added.
