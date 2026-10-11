@@ -11,7 +11,8 @@ export const site = {
   medium: "https://medium.com/@mscode07",
   youtube: "https://www.youtube.com/@mscode07",
   youtubeChannelId: "UCbHEWkcF1mequ_LpYLY7fBQ",
-  podcast: null,
+  podcast: "https://www.youtube.com/playlist?list=PLXOmtQsp0Vgc",
+  podcastPlaylistId: "PLXOmtQsp0Vgc",
   resume: "/resume/",
   followers: "7,800",
 };
@@ -44,20 +45,9 @@ export const videos = [
   }
 ];
 export const regularVideos = videos.filter((video) => video.kind !== "short");
-export const episodes = [
-  {
-    "id": "bhh6kkVWMEk",
-    "title": "Freelancing at 12, Building Apps at 18: Why He Builds in Private",
-    "kind": "video"
-  },
-  {
-    "id": "41tvkcwg31s",
-    "title": "🎙️ EP. 2 - The Underdog ShowStory of a Man who never said 'No' to Risks.",
-    "kind": "video"
-  },
-  {
-    "id": "B0zv4T_Hg-o",
-    "title": "🎙️ EP. 1 — The Underdog ShowAt 20, he built a game that made a $1M exit.",
-    "kind": "video"
-  }
-];
+// Verified public playlist snapshot, 2026-10-11; used only if the feed fails.
+export const episodes = [{
+  id: "uDcYqI4c0EE",
+  title: "He Left Ukraine, Failed to Sell His Product, and Feared AI Would Replace His Job",
+  kind: "video",
+}];
