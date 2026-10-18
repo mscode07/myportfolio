@@ -5,8 +5,8 @@ export function routeMeta(path) {
   const post = posts.find((p) => path === `/blog/${p.slug}/`);
   if (post)
     return {
-      title: `${post.title} — mscode07`,
-      description: post.excerpt,
+      title: post.seoTitle || `${post.title} — mscode07`,
+      description: post.seoDescription || post.excerpt,
       noindex: post.sample,
     };
   if (path === "/blog/")

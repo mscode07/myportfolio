@@ -1,5 +1,6 @@
 const articleModules = import.meta.glob("./content/*.mdx", { eager: true });
 const featuredOrder = [
+  "brian-ceo-to-saas",
   "fanti-freelancing-app-marketing",
   "petro-ukraine-products-ai",
   "danii-million-dollar-exit-starting-again",
