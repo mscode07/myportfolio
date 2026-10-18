@@ -27,7 +27,8 @@ test('compressed first-party JS and CSS stay within lightweight budgets', async 
   const assets = await readdir(new URL('assets/',root));
   let js=0,css=0;
   for (const file of assets) { const size=gzipSync(await readFile(new URL(`assets/${file}`,root))).length; if(file.endsWith('.js'))js+=size; if(file.endsWith('.css'))css+=size; }
-  assert.ok(js<110000,`${js} bytes JS`); assert.ok(css<15000,`${css} bytes CSS`);
+  // Full MDX articles are bundled; allow for the new long-form Brian interview.
+  assert.ok(js<120000,`${js} bytes JS`); assert.ok(css<15000,`${css} bytes CSS`);
 });
 test('unknown routes have a dedicated recovery page', async () => {
   const html = await readFile(new URL('404.html',root),'utf8');

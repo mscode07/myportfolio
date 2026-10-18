@@ -7,7 +7,7 @@ export const site = {
   email: "msabhithakur7777@gmail.com",
   x: "https://x.com/mscode07",
   github: "https://github.com/mscode07",
-  linkedin: "www.linkedin.com/in/mscode07",
+  linkedin: "https://www.linkedin.com/in/mscode07",
   medium: "https://medium.com/@mscode07",
   youtube: "https://www.youtube.com/@mscode07",
   youtubeChannelId: "UCbHEWkcF1mequ_LpYLY7fBQ",
