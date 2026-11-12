@@ -1,5 +1,7 @@
 const articleModules = import.meta.glob("./content/*.mdx", { eager: true });
 const featuredOrder = [
+  "steven-cesare-building-for-freedom",
+  "ryan-sales-to-zenith",
   "brian-ceo-to-saas",
   "fanti-freelancing-app-marketing",
   "petro-ukraine-products-ai",
