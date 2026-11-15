@@ -1,4 +1,4 @@
-import { GithubLogo, YoutubeLogo, XLogo } from "@phosphor-icons/react";
+import { ApplePodcastsLogo, GithubLogo, SpotifyLogo, YoutubeLogo, XLogo } from "@phosphor-icons/react";
 import { site } from "../site.js";
 
 export function Socials({ compact = false }) {
@@ -37,6 +37,26 @@ export function Socials({ compact = false }) {
       >
         <GithubLogo size={23} weight="fill" />
         {!compact && <span className="text-sm">GitHub</span>}
+      </a>
+      <a
+        className="social-link"
+        href={site.spotify}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="The Underdog Show on Spotify (opens in a new tab)"
+        title="Listen on Spotify"
+      >
+        <SpotifyLogo size={24} weight="fill" aria-hidden="true" />
+      </a>
+      <a
+        className="social-link"
+        href={site.applePodcasts}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="The Underdog Show on Apple Podcasts (opens in a new tab)"
+        title="Listen on Apple Podcasts"
+      >
+        <ApplePodcastsLogo size={24} aria-hidden="true" />
       </a>
     </div>
   );
