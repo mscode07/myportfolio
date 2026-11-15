@@ -90,7 +90,13 @@
   font-size: 14px;
   line-height: 1.6;
 }
-.podcast-copy .text-link { margin-top: 20px; }
+.podcast-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 20px;
+}
+.podcast-platforms .text-link { min-height: 44px; }
 @media(max-width:639px) {
   .podcast-intro { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .podcast-artwork { width: 180px; justify-self: center; }

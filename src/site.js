@@ -12,6 +12,8 @@ export const site = {
   youtube: "https://www.youtube.com/@mscode07",
   youtubeChannelId: "UCbHEWkcF1mequ_LpYLY7fBQ",
   podcast: "https://www.youtube.com/playlist?list=PLXOmtQsp0Vgc",
+  applePodcasts: "https://podcasts.apple.com/us/podcast/the-underdog-show/id6831498290",
+  spotify: "https://open.spotify.com/show/40wzrJVhKNCzlH83zFsKff?si=KyP3KiNzTyiquDcQcf61xw",
   podcastPlaylistId: "PLXOmtQsp0Vgc",
   resume: "/resume/",
   followers: "7,800",

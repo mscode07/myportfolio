@@ -27,3 +27,6 @@ The selected GitHub activity design places a compact full-year contribution grap
 The YouTube section uses a red YouTube logo beside its name and automatically slides through clickable video cards. Keep manual navigation, pause on hover or interaction, and disable automatic motion for reduced-motion users.
 
 The podcast carousel must use only the full-episode playlist PLXOmtQsp0Vgc. Auto-sliding moves right to left in a seamless circular loop, without a visible backward rewind. Keep episodes clickable, pause and reduced-motion support, and show a single episode without duplicating it until more are added.
+
+Include Spotify and Apple Podcasts listening links alongside the YouTube link in The Underdog Show introduction. Keep the supplied platform URLs in `src/site.js`.
+Also show Spotify and Apple Podcasts as icon links in the hero social row and footer, with accessible platform names.
